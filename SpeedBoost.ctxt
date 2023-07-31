@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=SpeedBoost
+comment1.params=
+comment1.target=SpeedBoost()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ checkCollision()
+comment4.params=player
+comment4.target=void\ applySpeedBoost(gato)
+comment5.params=
+comment5.target=void\ revertSpeedBoost()
+numComments=6

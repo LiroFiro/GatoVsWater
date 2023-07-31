@@ -34,9 +34,27 @@ public class gato extends Actor {
             CatWorld world = (CatWorld) getWorld();
             world.decreaseLives(); // Restar una vida al jugador.
         }
+
+        Actor powerUp = getOneIntersectingObject(SpeedBoost.class);
+        if (powerUp != null) {
+            getWorld().removeObject(powerUp);
+            applySpeedBoost();
+        }
     }
 
-    public void aumenta_velocidad() {
-        speed++;
+    public void aumentaVelocidad(int amount) {
+        speed += amount;
+    }
+
+    public void revertVelocidad(int amount) {
+        speed -= amount;
+    }
+
+    private void applySpeedBoost() {
+        CatWorld world = (CatWorld) getWorld();
+        world.increaseScore(20); // Puedes ajustar la cantidad de puntos obtenidos por recoger el power-up.
+        aumentaVelocidad(2); // Puedes ajustar la cantidad de aumento de velocidad por el power-up.
+        Greenfoot.delay(100); // Duración del power-up (en ciclos de act).
+        revertVelocidad(2); // Después de la duración, revertir el aumento de velocidad.
     }
 }
