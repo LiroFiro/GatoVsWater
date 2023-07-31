@@ -10,6 +10,7 @@ public class CatWorld extends World {
     private int numLives;
     private int initialLives = 3;
     private gato alonso;
+    private boolean isGameOver;
 
     public CatWorld() {
         super(600, 700, 1);
@@ -17,6 +18,7 @@ public class CatWorld extends World {
         numPassesPerLevel = 4;
         catSpeed = 2;
         numLives = initialLives;
+        isGameOver = false;
         scoreCounter = new Counter("Score: ");
         levelCounter = new Counter("Level: ");
         levelCounter.add(1);
@@ -28,8 +30,10 @@ public class CatWorld extends World {
     }
 
     public void act() {
-        increaseDifficulty();
-        addRivals();
+        if (!isGameOver) {
+            increaseDifficulty();
+            addRivals();
+        }
     }
 
     public int getRandomNumber(int start, int end) {
@@ -53,6 +57,7 @@ public class CatWorld extends World {
         numLives--;
         updateLives();
         if (numLives <= 0) {
+            isGameOver = true; // Marcar el juego como terminado.
             Greenfoot.stop(); // Detener el juego cuando se acaban las vidas.
         } else {
             alonso.setLocation(getWidth() / 2, getHeight() - 50); // Colocar al gato en la posición inicial.
@@ -101,5 +106,9 @@ public class CatWorld extends World {
             GreenfootImage heartImage = heart.getImage();
             heartImage.scale(30, 30); // Cambia el tamaño de la imagen del corazón.
         }
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
     }
 }

@@ -1,46 +1,42 @@
 import greenfoot.*;  
 
-public class gato extends Actor
-{
+public class gato extends Actor {
     private int speed;
-    
-    public gato(int v){
+
+    public gato(int v) {
         speed = v;
     }
-    
-    public void act() 
-    {
-        if(Greenfoot.isKeyDown("right")){
-            if(getX() < 460)
+
+    public void act() {
+        CatWorld world = (CatWorld) getWorld();
+        if (!world.isGameOver()) {
+            if (Greenfoot.isKeyDown("right") && getX() < 460) {
                 setLocation(getX() + speed, getY());
+            }
+            if (Greenfoot.isKeyDown("left") && getX() > 140) {
+                setLocation(getX() - speed, getY());
+            }
+            if (Greenfoot.isKeyDown("up") && getY() > 300) {
+                setLocation(getX(), getY() - speed);
+            }
+            if (Greenfoot.isKeyDown("down") && getY() < 640) {
+                setLocation(getX(), getY() + speed);
+            }
+
+            checkCollision();
         }
-        if(Greenfoot.isKeyDown("left")){
-            if(getX() > 140)
-                setLocation(getX() - speed, getY()); 
-        }
-        if(Greenfoot.isKeyDown("up")){
-            if(getY() > 300)
-                setLocation(getX() , getY() - speed); 
-        }
-        if(Greenfoot.isKeyDown("down")){
-            if(getY() < 640)
-                setLocation(getX() , getY() + speed); 
-        }
-        
-        checkCollision();
     }
-    
-    public void checkCollision(){
+
+    public void checkCollision() {
         Actor collided = getOneIntersectingObject(Water.class);
-        if (collided != null)
-        {
-          getWorld().removeObject(collided);
-          getWorld().removeObject(this);
-          Greenfoot.stop();
+        if (collided != null) {
+            getWorld().removeObject(collided);
+            CatWorld world = (CatWorld) getWorld();
+            world.decreaseLives(); // Restar una vida al jugador.
         }
     }
-    
-    public void aumenta_velocidad(){
+
+    public void aumenta_velocidad() {
         speed++;
     }
 }
