@@ -1,12 +1,13 @@
 import greenfoot.*;
 
 public class SpeedBoost extends Actor {
-    private int boostDuration = 200; // Duración del aumento de velocidad (en ciclos de act).
-    private int boostAmount = 2; // Cuánto se aumenta la velocidad.
-    private int timer = 0; // Contador para medir la duración del power-up.
+    private int boostDuration = 200;
+    private int boostAmount = 2;
+    private int timer = 0;
+    private int speed = 2;
 
     public SpeedBoost() {
-        setImage("speed_boost.png"); // Cambia "speed_boost.png" por el nombre de tu imagen del power-up.
+        // No es necesario establecer la imagen aquí porque Greenfoot lo hace automáticamente.
     }
 
     public void act() {
@@ -14,7 +15,14 @@ public class SpeedBoost extends Actor {
         if (timer > 0) {
             timer--;
         } else {
-            revertSpeedBoost();
+            moveDown();
+        }
+    }
+
+    private void moveDown() {
+        setLocation(getX(), getY() + speed);
+        if (getY() >= getWorld().getHeight() - 1) {
+            getWorld().removeObject(this);
         }
     }
 
@@ -29,12 +37,5 @@ public class SpeedBoost extends Actor {
     private void applySpeedBoost(gato player) {
         player.aumentaVelocidad(boostAmount);
         timer = boostDuration;
-    }
-
-    private void revertSpeedBoost() {
-        gato player = (gato) getOneIntersectingObject(gato.class);
-        if (player != null) {
-            player.revertVelocidad(boostAmount);
-        }
     }
 }

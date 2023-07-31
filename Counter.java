@@ -1,7 +1,6 @@
 import greenfoot.*; 
 
-public class Counter extends Actor
-{
+public class Counter extends Actor {
     private int value = 0;
     private int target = 0;
     private String text;
@@ -50,6 +49,11 @@ public class Counter extends Actor
         return value;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+        updateImage();
+    }
+
     private void updateImage() {
         GreenfootImage image = getImage();
         image.clear();
@@ -73,4 +77,3 @@ public class Counter extends Actor
         updateImage();
     }
 }
-

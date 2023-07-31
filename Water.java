@@ -1,15 +1,13 @@
-import greenfoot.*; 
+import greenfoot.*;
 
-public class Water extends Actor
-{
+public class Water extends Actor {
     private int speed;
-    
+
     public Water(int v) {
         speed = v;
     }
-   
-    public void act() 
-    {
+
+    public void act() {
         setLocation(getX(), getY() + speed);
         if (getY() >= getWorld().getHeight() - 1) {
             CatWorld world = (CatWorld) getWorld();
@@ -18,6 +16,5 @@ public class Water extends Actor
             world.decreaseRivals();
             world.increasePasses();
         }
-    }    
+    }
 }
-
