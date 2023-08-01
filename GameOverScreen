@@ -1,0 +1,12 @@
+import greenfoot.Actor;
+import greenfoot.GreenfootImage;
+
+public class GameOverScreen extends Actor {
+    public GameOverScreen() {
+        setImage(new GreenfootImage("gameover.png"));
+    }
+
+    public void act() {
+        // Agregue cualquier comportamiento que desee para su objeto aquí.
+    }
+}
