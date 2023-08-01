@@ -68,6 +68,35 @@ public class CatWorld extends World {
     public void decreaseRivals() {
         numRivals--;
     }
+    public void decreaseLives() {
+    numLives--;
+    updateLives();
+    if (numLives <= 0) {
+        isGameOver = true; // Marcar el juego como terminado.
+        Greenfoot.stop(); // Detener el juego cuando se acaban las vidas.
+    } else {
+        alonso.setLocation(getWidth() / 2, getHeight() - 50); // Colocar al gato en la posición inicial.
+        numRivals = 0; // Restablecer el contador de rivales cuando el gato pierde una vida.
+
+        // Crear una lista temporal para almacenar los objetos de tipo Water y SpeedBoost.
+        List<Water> waters = getObjects(Water.class);
+        List<SpeedBoost> powerUps = getObjects(SpeedBoost.class);
+
+        // Eliminar los objetos de tipo Water, excepto el gato.
+        List<Water> watersToRemove = new ArrayList<>();
+        for (Water water : waters) {
+            if (water != null && !water.equals(alonso)) {
+                watersToRemove.add(water);
+            }
+        }
+        removeObjects(watersToRemove);
+
+        // Eliminar los objetos de tipo SpeedBoost.
+        removeObjects(powerUps);
+
+        addObject(new gato(catSpeed), getWidth() / 2, getHeight() - 50); // Agregar un nuevo gato al mundo.
+    }
+}
 
 public void decreaseLives() {
     numLives--;
